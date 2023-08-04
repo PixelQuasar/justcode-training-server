@@ -7,6 +7,7 @@ const checkAccessLevel = (accessLevel: string) => {
         const access = await checkUserAccess(req.headers.authorization, accessLevel)
         if (access.allowed) {
             res.locals.userId = access.userId
+            res.locals.role = access.role
             next()
         }
         else {

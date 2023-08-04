@@ -33,7 +33,7 @@ router.post("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Res
         const {title, content, photosUrl} = req.body
         const userId = res.locals.userId
 
-        if (!title || !(content || photosUrl))  res.status(400).send()
+        if (!title || !(content || photosUrl)) res.status(400).send()
 
         await Post.create({
             authorId: userId,

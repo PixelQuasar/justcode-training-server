@@ -26,7 +26,8 @@ const checkUserAccess = async (token: string | undefined, userAccess: string) =>
 
     return {
         allowed: userAccessLevel >= accessLevel,
-        userId: userFromDB._id
+        userId: userFromDB._id,
+        role: userFromDB.userAccess
     }
 }
 
