@@ -17,10 +17,13 @@ const PostSchema = new Schema({
     },
     title: {
         type: String,
-        unique: true,
-        required: true
+        required: true,
+        index: true
     },
-    content: String,
+    content: {
+        type: String,
+        index: true
+    },
     photosUrl: Array<String>,
     likes: Number,
     views: Number
