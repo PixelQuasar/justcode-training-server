@@ -4,7 +4,9 @@ import { NextFunction, Request, Response } from 'express';
 
 const checkAccessLevel = (accessLevel: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
-        if (await checkUserAccess(req.headers.authorization, accessLevel)) {
+        const access = await checkUserAccess(req.headers.authorization, accessLevel)
+        if (access.allowed) {
+            res.locals.userId = access.userId
             next()
         }
         else {

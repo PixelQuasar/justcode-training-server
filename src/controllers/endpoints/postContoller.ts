@@ -30,14 +30,17 @@ router.get("/:id", checkAccessLevel(UserTypes.user), async (req: Request, res: R
 
 router.post("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Response) => {
     try {
-        const {name, link, description, photoURL} = req.body
+        const {title, content, photosUrl} = req.body
+        const userId = res.locals.userId
+
+        if (!title || !(content || photosUrl))  res.status(400).send()
 
         await Post.create({
-            name: name,
-            link: link,
-            description: description,
-            photoURL: photoURL,
-            isDeprecated: false
+            authorId: userId,
+            title: title,
+            content: content,
+            likes: 0,
+            views: 1
         })
 
         res.status(200).send()
