@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import checkAccessLevel from '../middleware/accessMiddleware';
 import UserTypes from '../../staticData/userTypes';
 import Post from '../../database/postSchema';
+import checkUser from '../middleware/checkUser';
 const router = express()
 
 router.get("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Response) => {
@@ -35,7 +36,7 @@ router.post("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Res
 
         if (!title || !(content || photosUrl)) res.status(400).send()
 
-        await Post.create({
+        const mongoResponse = await Post.create({
             authorId: userId,
             title: title,
             content: content,
@@ -43,10 +44,24 @@ router.post("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Res
             views: 1
         })
 
-        res.status(200).send()
+        res.send(mongoResponse)
     } catch (error) {
         console.log("material - addMaterial error:", error)
         res.status(500).send()
+    }
+})
+
+router.put("/", checkAccessLevel(UserTypes.user), checkUser, async (req: Request, res: Response) => {
+    try {
+        const update = req.body.update
+        const postId = req.body.postId
+
+        const mongoResponse = await Post.findByIdAndUpdate(postId, update)
+
+        res.send(mongoResponse)
+    }
+    catch {
+
     }
 })
 
