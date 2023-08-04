@@ -10,7 +10,7 @@ export interface IPost {
     views: number
 }
 
-const MaterialSchema = new Schema({
+const PostSchema = new Schema({
     authorId: {
         type: String,
         required: true
@@ -28,6 +28,6 @@ const MaterialSchema = new Schema({
     timestamps: true
 })
 
-const Material = model<IPost>("Material", MaterialSchema)
+const Post = model<IPost>("Post", PostSchema)
 
-export default Material
+export default Post
