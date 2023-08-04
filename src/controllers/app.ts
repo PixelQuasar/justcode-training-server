@@ -25,7 +25,7 @@ class App {
     });
     this.express.use(cors())
 
-    this.express.use('/', indexController)
+    this.express.use('/api/', indexController)
   }
 }
 
