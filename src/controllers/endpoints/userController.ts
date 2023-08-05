@@ -27,4 +27,19 @@ router.get("/:userId", checkAccessLevel("user"), async (req: Request, res: Respo
     }
 })
 
+router.put("/update", checkAccessLevel("user"), async (req: Request, res: Response) => {
+    try {
+        const { update } = req.body
+        const token = req.headers.authorization as string
+        const userData = await userDataByToken(token)
+        if (!userData) return res.status(403).send()
+
+        const mongoResponse = await User.findByIdAndUpdate(userData._id, update)
+        res.send(mongoResponse)
+    } catch (error) { 
+        res.status(400).send()
+        console.log("users - index error:", error)
+    }
+})
+
 export default router
