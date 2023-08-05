@@ -43,7 +43,7 @@ Login request
     "data": ACCESS_TOKEN
 
 
-## POST api/auth/userData
+## GET api/auth/userData
 Request to get user data by your token
 
 ### headers:
