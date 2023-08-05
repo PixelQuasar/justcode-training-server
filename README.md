@@ -7,6 +7,8 @@ Another API for your projects
 
 [Auth](#Auth)
 
+[Users](#Users)
+
 [Posts](#Posts)
 
 # Auth
@@ -53,4 +55,42 @@ Request to get user data by your token
     <User>
 
     
+# Users
+
+## GET api/users/
+Request to get all users
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    [ User ]
+
+
+## GET api/users/:userId
+Request to get all users
+
+### params:
+    userId - user id
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    <User>
+
+
+## PUT api/users/update
+Updates your user data
+
+### body:
+    "update": {
+        /update filter here/
+    }
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    <User>
 
