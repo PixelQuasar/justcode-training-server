@@ -7,7 +7,7 @@ import userRouter from './userController'
 
 const router = Router()
 
-router.use("/auth", userRouter)
+router.use("/users", userRouter)
 router.use("/auth", loginRouter)
 router.use("/files", fileRouter)
 router.use("/material", materialRouter)

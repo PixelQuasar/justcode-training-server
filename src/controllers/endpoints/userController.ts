@@ -32,9 +32,10 @@ router.put("/update", checkAccessLevel("user"), async (req: Request, res: Respon
         const { update } = req.body
         const token = req.headers.authorization as string
         const userData = await userDataByToken(token)
-        if (!userData) return res.status(403).send()
-
-        const mongoResponse = await User.findByIdAndUpdate(userData._id, update)
+        if (!userData) throw "user not found"
+        const userInDatabase = await User.findOne({ email: userData.email })
+        if (!userInDatabase) throw "user not found"
+        const mongoResponse = await User.findByIdAndUpdate(userInDatabase._id, update)
         res.send(mongoResponse)
     } catch (error) { 
         res.status(400).send()
