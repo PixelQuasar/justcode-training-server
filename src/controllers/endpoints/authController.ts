@@ -67,12 +67,12 @@ router.get("/userData", async (req: Request, res: Response) => {
     try {
         const userData = await userDataByToken(token)
         if (!userData) return res.status(403).send()
-
-        const mongoResponse = User.findOne({ email: userData.email })
+        console.log(userData)
+        const mongoResponse = await User.findOne({ email: userData.email })
         res.status(200).send(mongoResponse)
 
     } catch (error) { 
-        res.status(403).send()
+        res.status(400).send()
         console.log("auth - userData error:", error)
     }
 })
