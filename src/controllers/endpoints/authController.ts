@@ -14,7 +14,8 @@ const router = Router()
 
 router.post("/register", async (req: Request, res: Response) => {
     try {
-        const { login, email, password } = req.body
+        const { login, email, password, tryPassword } = req.body
+        if (password != tryPassword) throw "password and tryPassword must be same"
         const encryptedPassword = await bcrypt.hash(password, 10)
 
         const isEmailExists = await User.findOne({ email })
@@ -23,7 +24,7 @@ router.post("/register", async (req: Request, res: Response) => {
         if (isEmailExists) return res.json({ error: Messages.registerEmailError })
         if (isUsernameExists) return res.json({ error: Messages.registerUsernameError })
 
-        await User.create({
+        const mongoResponse = await User.create({
             login: login,
             email: email,
             avatar: await generateAvatar(),
@@ -32,11 +33,11 @@ router.post("/register", async (req: Request, res: Response) => {
             userAccess: UserTypes.user,
         });
 
-        res.status(200).send()
+        res.send(mongoResponse)
 
     } catch (error) {
         console.log("auth - register error:", error)
-        res.status(500).send()
+        res.status(500).send(error)
     }
 })
 
