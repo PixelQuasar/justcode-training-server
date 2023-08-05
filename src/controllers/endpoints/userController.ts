@@ -1,21 +1,29 @@
 import { Router, Request, Response } from 'express';
 import userDataByToken from '../../utils/userDataByToken';
 import User from '../../database/userSchema';
+import checkAccessLevel from '../middleware/accessMiddleware';
 
 const router = Router()
 
-router.get("/", async (req: Request, res: Response) => {
-    const token = req.headers.authorization as string
+router.get("/", checkAccessLevel("user"), async (req: Request, res: Response) => {
     try {
-        const userData = await userDataByToken(token)
-        if (!userData) return res.status(403).send()
-        console.log(userData)
-        const mongoResponse = await User.findOne({ email: userData.email })
+        const mongoResponse = await User.find({ })
         res.status(200).send(mongoResponse)
 
     } catch (error) { 
         res.status(400).send()
-        console.log("auth - userData error:", error)
+        console.log("users - index error:", error)
+    }
+})
+
+router.get("/:userId", checkAccessLevel("user"), async (req: Request, res: Response) => {
+    try {
+        const { userId } = req.params
+        const mongoResponse = await User.findById(userId)
+        res.send(mongoResponse)
+    } catch (error) { 
+        res.status(400).send()
+        console.log("users - index error:", error)
     }
 })
 
