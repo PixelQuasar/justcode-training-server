@@ -8,7 +8,7 @@ const router = express()
 router.get("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.params.page) ?? 0
-        const mongoResponse = await Post.find().skip(page * 20).limit(page * 20)
+        const mongoResponse = await Post.find().skip(page * 20).limit(20)
         res.send(mongoResponse)
     }
     catch (error) {
