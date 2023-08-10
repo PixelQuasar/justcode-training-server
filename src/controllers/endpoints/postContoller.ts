@@ -52,6 +52,7 @@ router.post("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Res
             authorId: userId,
             title: title,
             content: content,
+            photosUrl: photosUrl.split(" "),
             likes: 0,
             views: 1
         })
