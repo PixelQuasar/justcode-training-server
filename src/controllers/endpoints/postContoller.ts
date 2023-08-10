@@ -46,7 +46,8 @@ router.post("/", checkAccessLevel(UserTypes.user), async (req: Request, res: Res
         const {title, content, photosUrl} = req.body
         const userId = res.locals.userId
 
-        if (!title || !(content || photosUrl)) res.status(400).send()
+        console.log(title)
+        // if (!title || !(content || photosUrl)) res.status(400).send()
 
         const mongoResponse = await Post.create({
             authorId: userId,
