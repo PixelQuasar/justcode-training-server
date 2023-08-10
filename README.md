@@ -120,7 +120,7 @@ Request to create new post
 ### body:
     title: string,
     content: string
-    photosUrl: Array<string>
+    photosUrl: string
 
 ### headers:
     Authorization: <Token>
