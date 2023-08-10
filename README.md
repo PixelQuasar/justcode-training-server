@@ -94,3 +94,36 @@ Updates your user data
 ### response:
     <User>
 
+# Posts
+
+## GET api/posts/
+Request to get all posts
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    [ Post ]
+
+## GET api/posts/:id
+Request to get post by id
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    Post
+
+## POST api/posts/
+Request to create new post
+
+### body:
+    title: string,
+    content: string
+    photosUrl: Array<string>
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    Post
