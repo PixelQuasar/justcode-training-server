@@ -127,3 +127,40 @@ Request to create new post
 
 ### response:
     Post
+
+## GET api/search/:searchString
+Search posts by title and content
+
+### body:
+    none
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    [ Post ]
+
+
+## PUT api/posts/
+Request to update the post
+
+### body:
+    postId: string // post id
+    update: Object // update query
+### headers:
+    Authorization: <Token>
+
+### response:
+    Post
+
+## DELETE api/posts/
+Request to delete the post
+
+### body:
+    postId: string // post id
+
+### headers:
+    Authorization: <Token>
+
+### response:
+    Post
