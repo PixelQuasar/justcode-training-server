@@ -21,6 +21,9 @@ router.get("/:id", checkAccessLevel(UserTypes.user), async (req: Request, res: R
     try {
         const { id } = req.params
         const mongoResponse = await Post.findOne( {_id: id} )
+        if (!mongoResponse) throw "not found"
+        
+        const updateResponse = await Post.findOneAndUpdate( {_id: id}, {views: mongoResponse.views + 1} )
         res.send(mongoResponse)
     }
     catch (error) {
